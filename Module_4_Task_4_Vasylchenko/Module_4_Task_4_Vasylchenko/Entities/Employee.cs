@@ -14,6 +14,7 @@ namespace Module_4_Task_4_Vasylchenko.Entities
         public Office Office { get; set; }
         public int TitleId { get; set; }
         public Title Title { get; set; }
+
         public List<EmployeeProject> EmployeeProject { get; set; } = new List<EmployeeProject>();
     }
 }

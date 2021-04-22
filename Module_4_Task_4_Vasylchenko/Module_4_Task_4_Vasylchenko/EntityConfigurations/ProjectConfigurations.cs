@@ -13,6 +13,11 @@ namespace Module_4_Task_4_Vasylchenko.EntityConfigurations
             builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(50);
             builder.Property(p => p.Budget).HasColumnName("Budget").HasColumnType("money");
             builder.Property(p => p.StartedDate).HasColumnName("StartedDate").HasColumnType("datetime2(7)");
+
+            builder.HasOne(d => d.Client)
+                .WithMany(p => p.Projects)
+                .HasForeignKey(d => d.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

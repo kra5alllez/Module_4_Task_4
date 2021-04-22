@@ -11,6 +11,7 @@ namespace Module_4_Task_4_Vasylchenko
         public DbSet<Office> Offices { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<EmployeeProject> EmployeeProject { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -18,6 +19,7 @@ namespace Module_4_Task_4_Vasylchenko
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ClientConfigurations());
             modelBuilder.ApplyConfiguration(new EmployeeConfigurations());
             modelBuilder.ApplyConfiguration(new EmployeeProjectConfigurations());
             modelBuilder.ApplyConfiguration(new OfficeConfigurations());
