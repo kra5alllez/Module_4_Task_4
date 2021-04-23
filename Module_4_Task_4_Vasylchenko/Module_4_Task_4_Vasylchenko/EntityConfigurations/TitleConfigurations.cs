@@ -4,7 +4,7 @@ using Module_4_Task_4_Vasylchenko.Entities;
 
 namespace Module_4_Task_4_Vasylchenko.EntityConfigurations
 {
-    public class TitelConfigurations : IEntityTypeConfiguration<Title>
+    public class TitleConfigurations : IEntityTypeConfiguration<Title>
     {
         public void Configure(EntityTypeBuilder<Title> builder)
         {

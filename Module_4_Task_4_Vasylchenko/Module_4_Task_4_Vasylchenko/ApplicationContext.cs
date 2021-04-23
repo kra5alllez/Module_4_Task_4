@@ -24,7 +24,7 @@ namespace Module_4_Task_4_Vasylchenko
             modelBuilder.ApplyConfiguration(new EmployeeProjectConfigurations());
             modelBuilder.ApplyConfiguration(new OfficeConfigurations());
             modelBuilder.ApplyConfiguration(new ProjectConfigurations());
-            modelBuilder.ApplyConfiguration(new TitelConfigurations());
+            modelBuilder.ApplyConfiguration(new TitleConfigurations());
         }
     }
 }
