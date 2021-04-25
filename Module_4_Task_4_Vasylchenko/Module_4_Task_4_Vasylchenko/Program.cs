@@ -2,14 +2,20 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Module_4_Task_4_Vasylchenko
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.Read();
+            await using (var context = new SampleContextFactory().CreateDbContext(args))
+            {
+                await new LazyLoadingSamples(context).LoadCategoriesProductsAndSupply();
+            }
+
+            Console.ReadKey();
         }
     }
 }

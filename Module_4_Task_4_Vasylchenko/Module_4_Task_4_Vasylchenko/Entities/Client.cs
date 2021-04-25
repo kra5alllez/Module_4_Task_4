@@ -10,9 +10,8 @@ namespace Module_4_Task_4_Vasylchenko.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Country { get; set; }
-        public string Email { get; set; } 
-
-        public List<Project> Projects { get; set; } = new List<Project>();
+        public string Email { get; set; }
+        public virtual List<Project> Projects { get; set; } = new List<Project>();
 
     }
 }

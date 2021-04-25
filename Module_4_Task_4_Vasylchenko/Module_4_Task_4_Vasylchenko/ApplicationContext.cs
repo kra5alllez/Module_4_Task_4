@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Module_4_Task_4_Vasylchenko.Entities;
 using Module_4_Task_4_Vasylchenko.EntityConfigurations;
+using System;
 
 namespace Module_4_Task_4_Vasylchenko
 {
@@ -15,6 +17,12 @@ namespace Module_4_Task_4_Vasylchenko
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging().LogTo(Console.WriteLine, LogLevel.Information);
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -19,10 +19,10 @@ namespace Module_4_Task_4_Vasylchenko.Migrations
                 {
                     ClientId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,15 +49,16 @@ namespace Module_4_Task_4_Vasylchenko.Migrations
                 "('Darek', 'Phephe', 'Poland', 'iukddxrfh@gmail.com')," +
                 "('Alina', 'Alinaa', 'Ukrain', 'dfhdsfgsai@gmail.com')" +
                 "INSERT INTO Project (Name, Budget, StartedDate, ClientId)" +
-                "VALUES('Project1', 11, GETDATE(), 1)," +
-                "('Project1', 12, GETDATE(), 2)," +
-                "('Project1', 13, GETDATE(), 3)," +
-                "('Project1', 14, GETDATE(), 4)," +
-                "('Project1', 15, GETDATE(), 5)");
+                "VALUES('Project1', 11, GETDATE(), (SELECT ClientId From Client WHERE Email = 'indianemai@gmail.com'))," +
+                "('Project2', 12, GETDATE(), (SELECT ClientId From Client WHERE Email = 'fdhhfgmjgf@gmail.com'))," +
+                "('Project3', 13, GETDATE(), (SELECT ClientId From Client WHERE Email = 'fdhhfgmjgf@gmail.com'))," +
+                "('Project4', 14, GETDATE(), (SELECT ClientId From Client WHERE Email = 'iukddxrfh@gmail.com'))," +
+                "('Project5', 15, GETDATE(), (SELECT ClientId From Client WHERE Email = 'dfhdsfgsai@gmail.com'))");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("DELETE FROM Project WHERE Name IN ('Project1', 'Project2', 'Project3', 'Project4', 'Project5')");
             migrationBuilder.DropForeignKey(
                 name: "FK_Project_Client_ClientId",
                 table: "Project");
