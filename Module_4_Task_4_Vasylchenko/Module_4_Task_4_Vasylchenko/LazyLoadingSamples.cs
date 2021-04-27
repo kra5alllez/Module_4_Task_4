@@ -18,22 +18,20 @@ namespace Module_4_Task_4_Vasylchenko
 
         public async Task TaskOne()
         {
-            var data = await _context.Clients.
-                Select(c => new { cn = c.FirstName, pn = c.Projects.
-                SelectMany(p => p.EmployeeProject.
-                Select(e => new { ProjectName = p.Name, EmployeeID = e.EmployeeId }))}).ToListAsync();
+            var data = await _context.Employees.
+                Select(c => new { l = c.Id, p = c.Title.Name, d = c.EmployeeProject.Select(e => e.ProjectId)}).ToListAsync();
 
-            foreach (var client in data)
+            foreach (var employee in data)
             {
-                Console.WriteLine($"NameClient: {client.cn}. {string.Join(",", string.Join(",", client.pn))}");
+                Console.WriteLine($"NameClient: {employee.l} . {employee.p} . {string.Join(",", employee.d)}");
             }
         }
         public async Task TaskTwo()
         {
             var data = await _context.Employees.
                 Select(e => SqlServerDbFunctionsExtensions.
-                DateDiffDay(null, e.HiredDate, DateTime.Now)).
-                OrderBy(e => e).ToListAsync();
+                DateDiffDay(null, e.HiredDate, DateTime.Now))
+                .ToListAsync();
 
             foreach (var dif in data)
             {
@@ -43,8 +41,8 @@ namespace Module_4_Task_4_Vasylchenko
 
         public async Task TaskThree()
         {
-            var employee = await _context.Employees.FirstOrDefaultAsync();
-            var office = await _context.Offices.FirstOrDefaultAsync();
+            var employee = await _context.Employees.FirstAsync();
+            var office = await _context.Offices.FirstAsync();
 
             if (employee != null)
             {
@@ -62,8 +60,8 @@ namespace Module_4_Task_4_Vasylchenko
 
         public async Task TaskFour()
         {
-            var office = await _context.Offices.FirstOrDefaultAsync(o => o.Location == "Italia");
-            var project = await _context.Projects.FirstOrDefaultAsync(o => o.Name == "Project2");
+            var office = await _context.Offices.FirstAsync(o => o.Location == "Italia3");
+            var project = await _context.Projects.FirstAsync(o => o.Name == "Project2");
 
             var employee = new Employee { FirstName = "Ivan", 
                 LastName = "Ivan", 
@@ -80,7 +78,7 @@ namespace Module_4_Task_4_Vasylchenko
 
         public async Task TaskFive()
         {
-            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.FirstName == "Ivan");
+            var employee = await _context.Employees.FirstAsync(e => e.FirstName == "Ivan");
             _context.EmployeeProject.RemoveRange(employee.EmployeeProject);
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
@@ -93,12 +91,11 @@ namespace Module_4_Task_4_Vasylchenko
                 Select(s => new
                 {
                     s.Key,
-                    Count = s.Count()
                 }).ToListAsync();
 
             foreach (var dif in group)
             {
-                Console.WriteLine($"{dif.Key} : {dif.Count}");
+                Console.WriteLine($"{dif.Key}");
             }
         }
     }
